@@ -5,7 +5,7 @@ import { Button, Text } from 'react-native-paper'
 const Cursos = ({navigation}) => {
   return (
     <>
-    <Text>vai corinthians</Text>
+    <Text style={{ color: 'black' }}>Formulário</Text>
     <Button icon='plus' 
     mode='contained'
     onPress={() =>navigation.push('Cursos-Form')}
