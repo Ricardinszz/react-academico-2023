@@ -5,6 +5,9 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import CursosStack from './Screens/Cursos/CursoStack';
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
+import DisciplinasStack from './Screens/Disciplinas/DisciplinasStack';
+import AlunosStack from './Screens/Alunos/AlunosStack';
+import ProfessoresStack from './Screens/Professores/ProfessoresStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -26,7 +29,7 @@ export default function App() {
 
             <Tab.Screen
               name="Disciplinas"
-              component={CursosStack}
+              component={DisciplinasStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="book-open-page-variant" size={26} />
@@ -36,7 +39,7 @@ export default function App() {
 
             <Tab.Screen
               name="Alunos"
-              component={CursosStack}
+              component={AlunosStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="account" size={26} />
@@ -46,7 +49,7 @@ export default function App() {
 
             <Tab.Screen
               name="Professores"
-              component={CursosStack}
+              component={ProfessoresStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="clipboard-account-outline" size={26} />
