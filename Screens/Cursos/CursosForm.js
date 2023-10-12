@@ -13,13 +13,18 @@ const CursosForm = ({navigation}) => {
 
   function salvar(){
 
-    const cursos = []
-    cursos.push(dados)
-    console.log(cursos)
+    AsyncStorage.getItem('cursos').then(resultado =>{
 
-    AsyncStorage.setItem('cursos', JSON.stringify(cursos))
+      const cursos = JSON.parse(resultado) || []
+
+      cursos.push(dados)
+      console.log(cursos)
+
+      AsyncStorage.setItem('cursos', JSON.stringify(cursos))
 
     navigation.goBack()
+    })
+
   }
 
   return (

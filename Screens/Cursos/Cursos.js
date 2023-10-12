@@ -8,7 +8,6 @@ const Cursos = ({navigation}) => {
   const [cursos, setCursos] = useState([])
 
   useEffect(() => {
-
     AsyncStorage.getItem('cursos').then(resultado =>{
 
       resultado = JSON.parse(resultado) || []
