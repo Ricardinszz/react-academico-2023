@@ -32,7 +32,7 @@ const Cursos = ({navigation}) => {
     </Button>
 
     {cursos.map(item=>(
-      <Text>{item.nome}</Text>
+      <Text style={{ color: 'black' }}>{item.nome}</Text>
       ))}
     
     </>

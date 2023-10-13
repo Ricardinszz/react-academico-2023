@@ -8,6 +8,7 @@ import { PaperProvider } from 'react-native-paper';
 import DisciplinasStack from './Screens/Disciplinas/DisciplinasStack';
 import AlunosStack from './Screens/Alunos/AlunosStack';
 import ProfessoresStack from './Screens/Professores/ProfessoresStack';
+import TurmasStack from './Screens/Turmas/TurmasStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -59,7 +60,7 @@ export default function App() {
 
             <Tab.Screen
               name="Turmas"
-              component={CursosStack}
+              component={TurmasStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="school" size={26} />

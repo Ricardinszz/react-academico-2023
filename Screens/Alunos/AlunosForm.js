@@ -1,8 +1,9 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 
-const AlunosForm = () => {
+const AlunosForm = ({navigation}) => {
 
     const [dados, setDados] = useState({})
 
@@ -11,8 +12,20 @@ const AlunosForm = () => {
     }
 
     function salvar() {
-        console.log(dados)
-    }
+        AsyncStorage.getItem('alunos').then(resultado =>{
+
+            const alunos = JSON.parse(resultado) || []
+      
+            alunos.push(dados)
+            console.log(alunos)
+      
+            AsyncStorage.setItem('alunos', JSON.stringify(alunos))
+      
+          navigation.goBack()
+          })
+      
+        }
+
 
     return (
         <ScrollView style={{ margin: 15 }}>
@@ -34,7 +47,7 @@ const AlunosForm = () => {
                     mode='outlined'
                     label='CPF'
                     keyboardType='decimal-pad'
-                    value={dados.duracao}
+                    value={dados.cpf}
                     onChangeText={(valor) => handleChange(valor, 'cpf')}
                 />
 
@@ -42,7 +55,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='Matrícula'
-                    value={dados.nome}
+                    value={dados.matricula}
                     onChangeText={(valor) => handleChange(valor, 'matricula')}
                 />
 
@@ -50,7 +63,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='Email'
-                    value={dados.nome}
+                    value={dados.email}
                     onChangeText={(valor) => handleChange(valor, 'email')}
                 />
 
@@ -59,7 +72,7 @@ const AlunosForm = () => {
                     mode='outlined'
                     label='Telefone'
                     keyboardType='decimal-pad'
-                    value={dados.nome}
+                    value={dados.telefone}
                     onChangeText={(valor) => handleChange(valor, 'telefone')}
                 />
 
@@ -67,7 +80,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='CEP'
-                    value={dados.nome}
+                    value={dados.cep}
                     onChangeText={(valor) => handleChange(valor, 'cep')}
                 />
 
@@ -75,7 +88,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='Logradouro'
-                    value={dados.nome}
+                    value={dados.logradouro}
                     onChangeText={(valor) => handleChange(valor, 'logradouro')}
                 />
 
@@ -83,7 +96,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='Complemento'
-                    value={dados.nome}
+                    value={dados.complemento}
                     onChangeText={(valor) => handleChange(valor, 'complemento')}
                 />
 
@@ -91,7 +104,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='Numero'
-                    value={dados.nome}
+                    value={dados.numero}
                     onChangeText={(valor) => handleChange(valor, 'numero')}
                 />
 
@@ -99,7 +112,7 @@ const AlunosForm = () => {
                     style={{ margin: 5 }}
                     mode='outlined'
                     label='Bairro'
-                    value={dados.modalidade}
+                    value={dados.bairro}
                     onChangeText={(valor) => handleChange(valor, 'bairro')}
                 />
 
