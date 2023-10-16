@@ -11,7 +11,7 @@ const ProfessoresStack = () => {
     return (
         <>
             <Stack.Navigator>
-                <Stack.Screen name='Disciplinas' component={Professores} options={{ title: 'Professores' }} />
+                <Stack.Screen name='professores' component={Professores} options={{ title: 'Professores' }} />
                 <Stack.Screen name='Professores-Form' component={ProfessoresForm} options={{ title: 'Formulario' }} />
             </Stack.Navigator>
         </>
