@@ -31,7 +31,7 @@ const CursosForm = ({navigation}) => {
     <ScrollView style={{margin: 15}}>
     <>
     
-    <Text style={{ color: 'black' }}>Formulário de Curso</Text>
+    <Text style={{ color: 'black' }}>Formulário de Cursos</Text>
 
     <TextInput 
     style={{margin: 5}} 
