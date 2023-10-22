@@ -52,7 +52,7 @@ function confirmarExclusao(id){
     <>
       <ScrollView style={{ padding: 15 }}>
 
-        <Text style={{ color: 'black' }}>Formulário Curso</Text>
+        <Text style={{ color: 'black' }}>Cursos</Text>
 
         {cursos.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>

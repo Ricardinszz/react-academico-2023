@@ -1,38 +1,98 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Button, Text } from 'react-native-paper'
+import { ScrollView } from 'react-native'
+import { Button, Card, Dialog, FAB, IconButton, Portal, Text } from 'react-native-paper'
 
 
 const Disciplinas = ({navigation}) => {
 
   const [disciplinas, setDisciplinas] = useState([])
   
-    useEffect(() => {
-      AsyncStorage.getItem('disciplinas').then(resultado =>{
-  
+  const [idExcluir, setExcluir] = useState([0])
+
+  const [visible, setVisible] = React.useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
+    
+  useFocusEffect(
+    React.useCallback(() => {
+      AsyncStorage.getItem('disciplinas').then(resultado => {
         resultado = JSON.parse(resultado) || []
-  
         console.log(resultado)
-  
         setDisciplinas(resultado)
       })
-  
-    },[])
+
+    }, [])
+  );
+
+  function carregarDados() {
+    AsyncStorage.getItem('disciplinas').then(resultado => {
+      resultado = JSON.parse(resultado) || []
+      console.log(resultado)
+      setDisciplinas(resultado)
+    })
+  }
+
+  function confirmarExclusao(id){
+    setExcluir(id)
+    setVisible(true)
+    
+  }
+
+  function excluir() {
+    disciplinas.splice(idExcluir, 1)
+    AsyncStorage.setItem('disciplinas', JSON.stringify(disciplinas))
+    carregarDados()
+    setVisible(false)
+  }
+
+
+
 
   return (
     <>
-    <Text style={{ color: 'black' }}>Formulário Disciplinas</Text>
-    <Button icon='plus' 
-    mode='contained'
-    onPress={() =>navigation.push('Disciplinas-Form')}
-    >
-      Novo
-    </Button>
+      <ScrollView style={{ padding: 15 }}>
 
-    {disciplinas.map(item=>(
-      <Text style={{ color: 'black' }}>{item.nome}</Text>
-      ))}
+        <Text style={{ color: 'black' }}>Disciplinas</Text>
 
+        {disciplinas.map((item, i) => (
+          <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
+            <Card.Content>
+              <Text variant="titleLarge">{item.nome}</Text>
+            </Card.Content>
+            <Card.Actions>
+              <IconButton icon='pencil-outline' 
+              onPress={() => navigation.push('Disciplinas-Form', {id: i, Disciplina: item})}
+              />
+              <IconButton icon='trash-can-outline'
+                onPress={() => confirmarExclusao(i)}
+              />
+
+            </Card.Actions>
+          </Card>
+        ))}
+
+        <Portal>
+          <Dialog visible={visible} onDismiss={hideDialog}>
+            <Dialog.Title>Atenção</Dialog.Title>
+            <Dialog.Content>
+              <Text variant="bodyMedium">Deseja realmente excluir o registro?</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={excluir}>Sim</Button>
+              <Button onPress={hideDialog}>Não</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+
+      </ScrollView>
+      <FAB
+        icon="plus"
+        size='small'
+        style={{ position: 'absolute', margin: 16, right: 5, bottom: 5 }}
+        onPress={() => navigation.push('Disciplinas-Form')}
+      />
     </>
   )
 }
