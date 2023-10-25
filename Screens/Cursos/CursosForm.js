@@ -3,12 +3,23 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import * as Yup from 'yup';
+import cursoValidator from '../../Validators/cursoValidator'
+
 
 const CursosForm = ({ navigation, route }) => {
 
-  const curso = route.params?.curso || {}
+  let curso = {
+    nome: '',
+    duracao: '',
+    modalidade: ''
+  }
+
   const id = route.params?.id
+
+  if(id) {
+     curso = route.params?.curso 
+
+  }
 
   function salvar(dados) {
 
@@ -22,23 +33,12 @@ const CursosForm = ({ navigation, route }) => {
         cursos.push(dados)
       }
 
-      console.log(cursos)
-
       AsyncStorage.setItem('cursos', JSON.stringify(cursos))
 
       navigation.goBack()
     })
+
   }
-
-  const cursoValidator = Yup.object().shape({
-    nome: Yup.string()
-      .min(2, 'valor muito curto')
-      .max(50, 'valor muito grande')
-      .required('campo obrigatorio'),
-
-    duracao: Yup.number('Somente Numeros'),
-    modalidade: Yup.string(),
-  })
 
   return (
     <ScrollView style={{ margin: 15 }}>
