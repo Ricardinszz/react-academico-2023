@@ -4,9 +4,12 @@ import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import cursoValidator from '../../Validators/cursoValidator'
+import { mask } from 'remask'
 
 
 const CursosForm = ({ navigation, route }) => {
+
+
 
   let curso = {
     nome: '',
@@ -16,8 +19,8 @@ const CursosForm = ({ navigation, route }) => {
 
   const id = route.params?.id
 
-  if(id) {
-     curso = route.params?.curso 
+  if (id) {
+    curso = route.params?.curso
 
   }
 
@@ -51,7 +54,7 @@ const CursosForm = ({ navigation, route }) => {
           validationSchema={cursoValidator}
           onSubmit={values => salvar(values)}
         >
-          {({ values, handleChange, handleSubmit, errors, touched }) => (
+          {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
             <View>
               <TextInput
                 style={{ margin: 5 }}
@@ -94,6 +97,14 @@ const CursosForm = ({ navigation, route }) => {
                   {errors.modalidade}
                 </Text>
               }
+
+              <TextInput
+                style={{ margin: 5 }}
+                mode='outlined'
+                label='cpf'
+                value={values.cpf}
+                onChangeText={(value) =>{setFieldValue('cpf', mask(value, '999.999.999-99'))}}
+              />
 
               <Button onPress={handleSubmit}>Salvar</Button>
             </View>
