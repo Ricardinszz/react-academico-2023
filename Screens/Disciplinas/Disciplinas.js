@@ -8,7 +8,6 @@ import { Button, Card, Dialog, FAB, IconButton, Portal, Text } from 'react-nativ
 const Disciplinas = ({navigation}) => {
 
   const [disciplinas, setDisciplinas] = useState([])
-  
   const [idExcluir, setExcluir] = useState([0])
 
   const [visible, setVisible] = React.useState(false);
