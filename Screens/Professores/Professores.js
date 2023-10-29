@@ -17,19 +17,13 @@ const Professores = ({navigation}) => {
   
   useFocusEffect(
     React.useCallback(() => {
-      AsyncStorage.getItem('professores').then(resultado => {
-        resultado = JSON.parse(resultado) || []
-        console.log(resultado)
-        setProfessores(resultado)
-      })
-
+      carregarDados()
     }, [])
   );
 
   function carregarDados() {
     AsyncStorage.getItem('professores').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      console.log(resultado)
       setProfessores(resultado)
     })
   }

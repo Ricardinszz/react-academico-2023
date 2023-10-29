@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, Portal, Text } from 'react-native-paper'
 
-
 const Alunos = ({navigation}) => {
   const [alunos, setAlunos] = useState([])
   const [idExcluir, setExcluir] = useState([0])
@@ -15,19 +14,13 @@ const Alunos = ({navigation}) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      AsyncStorage.getItem('alunos').then(resultado => {
-        resultado = JSON.parse(resultado) || []
-        console.log(resultado)
-        setAlunos(resultado)
-      })
-
+      carregarDados()
     }, [])
   );
 
   function carregarDados() {
     AsyncStorage.getItem('alunos').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      console.log(resultado)
       setAlunos(resultado)
     })
   }

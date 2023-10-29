@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, Portal, Text } from 'react-native-paper'
 
-
-const Disciplinas = ({navigation}) => {
+const Disciplinas = ({ navigation }) => {
 
   const [disciplinas, setDisciplinas] = useState([])
   const [idExcluir, setExcluir] = useState([0])
@@ -13,31 +12,26 @@ const Disciplinas = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-    
+
   useFocusEffect(
     React.useCallback(() => {
-      AsyncStorage.getItem('disciplinas').then(resultado => {
-        resultado = JSON.parse(resultado) || []
-        console.log(resultado)
-        setDisciplinas(resultado)
-      })
-
+      carregarDados()
     }, [])
   );
 
   function carregarDados() {
     AsyncStorage.getItem('disciplinas').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      console.log(resultado)
       setDisciplinas(resultado)
     })
   }
 
-  function confirmarExclusao(id){
-    setExcluir(id)
-    setVisible(true)
-    
-  }
+function confirmarExclusao(id){
+  setExcluir(id)
+  setVisible(true)
+  
+}
+
 
   function excluir() {
     disciplinas.splice(idExcluir, 1)
@@ -45,7 +39,6 @@ const Disciplinas = ({navigation}) => {
     carregarDados()
     setVisible(false)
   }
-
 
 
 
@@ -62,7 +55,7 @@ const Disciplinas = ({navigation}) => {
             </Card.Content>
             <Card.Actions>
               <IconButton icon='pencil-outline' 
-              onPress={() => navigation.push('Disciplinas-Form', {id: i, Disciplina: item})}
+              onPress={() => navigation.push('Disciplinas-Form', {id: i, disciplina: item})}
               />
               <IconButton icon='trash-can-outline'
                 onPress={() => confirmarExclusao(i)}

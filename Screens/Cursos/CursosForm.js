@@ -98,14 +98,6 @@ const CursosForm = ({ navigation, route }) => {
                 </Text>
               }
 
-              <TextInput
-                style={{ margin: 5 }}
-                mode='outlined'
-                label='cpf'
-                value={values.cpf}
-                onChangeText={(value) =>{setFieldValue('cpf', mask(value, '999.999.999-99'))}}
-              />
-
               <Button onPress={handleSubmit}>Salvar</Button>
             </View>
           )}

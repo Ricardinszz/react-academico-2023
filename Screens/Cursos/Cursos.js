@@ -15,19 +15,13 @@ const Cursos = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      AsyncStorage.getItem('cursos').then(resultado => {
-        resultado = JSON.parse(resultado) || []
-        console.log(resultado)
-        setCursos(resultado)
-      })
-
+      carregarDados()
     }, [])
   );
 
   function carregarDados() {
     AsyncStorage.getItem('cursos').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      console.log(resultado)
       setCursos(resultado)
     })
   }
