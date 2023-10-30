@@ -41,7 +41,7 @@ const Disciplinas = ({ navigation }) => {
     <>
       <ScrollView style={{ padding: 15 }}>
 
-        <Text style={{ color: 'black' }}>Disciplinas</Text>
+        <Text style={{ color: 'black' }}>Disciplinas!</Text>
 
         {disciplinas.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>

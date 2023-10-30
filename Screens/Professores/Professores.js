@@ -42,7 +42,7 @@ const Professores = ({ navigation }) => {
     <>
       <ScrollView style={{ padding: 15 }}>
 
-        <Text style={{ color: 'black' }}>Professores</Text>
+        <Text style={{ color: 'black' }}>Professores!</Text>
 
         {professores.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
