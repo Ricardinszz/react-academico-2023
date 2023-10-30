@@ -1,20 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
-import { Button, Card, Dialog, FAB, IconButton, Portal, Text } from 'react-native-paper'
+import { ScrollView, View } from 'react-native'
+import { Button, Card, Dialog, FAB, IconButton, MD3DarkTheme, Portal, Text } from 'react-native-paper'
 
-
-
-const Professores = ({navigation}) => {
+const Professores = ({ navigation }) => {
 
   const [professores, setProfessores] = useState([])
-  const [idExcluir, setExcluir] = useState([0])
+  const [idExcluir, setIdExcluir] = useState(0)
 
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-  
+
   useFocusEffect(
     React.useCallback(() => {
       carregarDados()
@@ -28,10 +26,9 @@ const Professores = ({navigation}) => {
     })
   }
 
-  function confirmarExclusao(id){
-    setExcluir(id)
+  function confirmarExclusao(id) {
+    setIdExcluir(id)
     setVisible(true)
-    
   }
 
   function excluir() {
@@ -40,7 +37,6 @@ const Professores = ({navigation}) => {
     carregarDados()
     setVisible(false)
   }
-
 
   return (
     <>

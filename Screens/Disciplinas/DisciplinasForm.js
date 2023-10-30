@@ -1,25 +1,22 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import disciplinasValidator from '../../Validators/disciplinasValidator'
 import { mask } from 'remask'
-
+import disciplinasValidator from '../../Validators/disciplinasValidator'
 
 const DisciplinasForm = ({ navigation, route }) => {
 
   let disciplina = {
-    nome: '',
-    duracao: '',
-    modalidade: ''
-  }
+        nome: '',
+    }
 
   const id = route.params?.id
 
-  if (id) {
+  if (id >= 0) {
     disciplina = route.params?.disciplina
-
   }
 
   function salvar(dados) {
@@ -38,9 +35,7 @@ const DisciplinasForm = ({ navigation, route }) => {
 
       navigation.goBack()
     })
-
   }
-
   return (
     <ScrollView style={{ margin: 15 }}>
       <>

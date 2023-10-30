@@ -1,14 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import alunoValidator from '../../Validators/alunoValidator'
 import { mask } from 'remask'
+import alunoValidator from '../../Validators/alunoValidator'
+
 
 const AlunosForm = ({ navigation, route }) => {
 
-    let aluno = {
+  let aluno = {
         nome: '',
         cpf: '',
         matricula: '',
@@ -21,34 +23,29 @@ const AlunosForm = ({ navigation, route }) => {
         bairro: ''
     }
 
+  const id = route.params?.id
 
-    const id = route.params?.id
+  if (id >= 0) {
+    aluno = route.params?.aluno
+  }
 
-    if (id) {
-        aluno = route.params?.aluno
+  function salvar(dados) {
 
-    }
+    AsyncStorage.getItem('alunos').then(resultado => {
 
+      const alunos = JSON.parse(resultado) || []
 
-    function salvar(dados) {
-
-        AsyncStorage.getItem('alunos').then(resultado => {
-    
-          const alunos = JSON.parse(resultado) || []
-    
-          if (id >= 0) {
-            alunos.splice(id, 1, dados)
-          } else {
-            alunos.push(dados)
-          }
-    
-          AsyncStorage.setItem('alunos', JSON.stringify(alunos))
-    
-          navigation.goBack()
-        })
-    
+      if (id >= 0) {
+        alunos.splice(id, 1, dados)
+      } else {
+        alunos.push(dados)
       }
 
+      AsyncStorage.setItem('alunos', JSON.stringify(alunos))
+
+      navigation.goBack()
+    })
+  }
 
     return (
         <ScrollView style={{ margin: 15 }}>

@@ -1,14 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import professoresValidator from '../../Validators/professoresValidator'
 import { mask } from 'remask'
+import professoresValidator from '../../Validators/professoresValidator'
 
 const ProfessoresForm = ({ navigation, route }) => {
 
-    let professor = {
+  let professor = {
         nome: '',
         cpf: '',
         matricula: '',
@@ -22,35 +23,29 @@ const ProfessoresForm = ({ navigation, route }) => {
         bairro: ''
     }
 
+  const id = route.params?.id
 
-    const id = route.params?.id
+  if (id >= 0) {
+    professor = route.params?.professor
+  }
 
-    if (id) {
-        professor = route.params?.professor
+  function salvar(dados) {
 
-    }
+    AsyncStorage.getItem('professores').then(resultado => {
 
+      const professores = JSON.parse(resultado) || []
 
-    function salvar(dados) {
+      if (id >= 0) {
+        professores.splice(id, 1, dados)
+      } else {
+        professores.push(dados)
+      }
 
-        AsyncStorage.getItem('professores').then(resultado => {
+      AsyncStorage.setItem('professores', JSON.stringify(professores))
 
-            const professores = JSON.parse(resultado) || []
-
-            if (id >= 0) {
-                professores.splice(id, 1, dados)
-            } else {
-                professores.push(dados)
-            }
-
-            AsyncStorage.setItem('professores', JSON.stringify(professores))
-
-            navigation.goBack()
-        })
-
-    }
-
-
+      navigation.goBack()
+    })
+  }
     return (
         <ScrollView style={{ margin: 15 }}>
             <>

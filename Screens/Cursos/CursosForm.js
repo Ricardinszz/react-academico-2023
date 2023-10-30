@@ -1,15 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import cursoValidator from '../../Validators/cursoValidator'
 import { mask } from 'remask'
-
+import cursoValidator from '../../Validators/cursoValidator'
 
 const CursosForm = ({ navigation, route }) => {
-
-
 
   let curso = {
     nome: '',
@@ -19,9 +17,8 @@ const CursosForm = ({ navigation, route }) => {
 
   const id = route.params?.id
 
-  if (id) {
+  if (id >= 0) {
     curso = route.params?.curso
-
   }
 
   function salvar(dados) {
@@ -40,7 +37,6 @@ const CursosForm = ({ navigation, route }) => {
 
       navigation.goBack()
     })
-
   }
 
   return (
