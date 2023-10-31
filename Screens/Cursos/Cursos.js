@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, Portal, Text } from 'react-native-paper'
 
-const Cursos = ({ navigation }) => {
+const Cursos = ({ navigation, route }) => {
 
   const [cursos, setCursos] = useState([])
   const [idExcluir, setIdExcluir] = useState(0)

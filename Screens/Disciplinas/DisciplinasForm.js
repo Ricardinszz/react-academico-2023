@@ -6,18 +6,29 @@ import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { mask } from 'remask'
 import disciplinasValidator from '../../Validators/disciplinasValidator'
+import { useEffect } from 'react'
+import { Picker } from '@react-native-picker/picker'
 
 const DisciplinasForm = ({ navigation, route }) => {
 
   let disciplina = {
-        nome: '',
-    }
+    nome: '',
+    curso_id: '',
+  }
 
+  const [cursos, setCursos] = useState([])
   const id = route.params?.id
 
   if (id >= 0) {
     disciplina = route.params?.disciplina
   }
+
+  useEffect(() => {
+    AsyncStorage.getItem('cursos').then(resultado => {
+      resultado = JSON.parse(resultado) || []
+      setCursos(resultado)
+    })
+  }, [])
 
   function salvar(dados) {
 
@@ -63,6 +74,22 @@ const DisciplinasForm = ({ navigation, route }) => {
                 </Text>
               }
 
+              <Picker
+                selectedValue={values.curso_id}
+                onValueChange={handleChange('curso_id')}>
+                <Picker.Item label="Curso" value="" />
+              {cursos.map((item, i)=>(
+                <Picker.Item key={i}
+                label={item.nome}
+                value={item.nome}
+                />
+              ))}
+              </Picker>
+              {(errors.curso_id && touched.curso_id) &&
+                <Text style={{ color: 'red', marginTop: 5 }}>
+                  {errors.curso_id}
+                </Text>
+              }
 
               <Button onPress={handleSubmit}>Salvar</Button>
             </View>
