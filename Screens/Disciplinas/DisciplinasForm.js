@@ -51,7 +51,7 @@ const DisciplinasForm = ({ navigation, route }) => {
     <ScrollView style={{ margin: 15 }}>
       <>
 
-        <Text style={{ color: 'black' }}>Formulário de Disciplina</Text>
+        <Text style={{ color: 'black' }}>Formulário de Disciplina!</Text>
 
         <Formik
           initialValues={disciplina}
